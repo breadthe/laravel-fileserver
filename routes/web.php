@@ -17,8 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/f/{uuid}', function (\Illuminate\Http\Request $request) {
+    dump($request->uuid);
+})->name('download');
+
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/upload', function () {
+        return view('upload');
+    })->name('upload');
 });
