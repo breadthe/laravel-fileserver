@@ -5,6 +5,8 @@
         </div>
     @endif
 
+    <livewire:file-upload />
+
     <div class="divide-y">
         @forelse($files as $file)
             <x-file :file="$file" :key="$file->id"/>

@@ -11,8 +11,8 @@ class FileUpload extends Component
 {
     use WithFileUploads;
 
-    public $file;
-    public $uploadedFileInfo = null;
+    public $file = null;
+    public $inputId = 1; // give the file input an id so I can reset it later
 
     public function save()
     {
@@ -33,6 +33,12 @@ class FileUpload extends Component
             'mime' => $fileMime,
             'size' => $fileSize,
         ]);
+
+        $this->file = null; // doesn't work, and neither does $this->reset('file')
+        $this->inputId++; // workaround for clearing the file input
+
+        $this->emit('newFileUploaded');
+        session()->flash('message', 'File successfully uploaded.');
     }
 
     public function render()

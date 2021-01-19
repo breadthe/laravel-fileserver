@@ -10,6 +10,12 @@ class Files extends Component
 {
     public $files;
 
+    protected $listeners = ['newFileUploaded' => 'getFiles'];
+
+    public function getFiles() {
+        $this->files = auth()->user()->files()->orderByDesc('created_at')->get();
+    }
+
     public function delete(File $file)
     {
         if ($file->user_id === auth()->id()) {
@@ -21,7 +27,7 @@ class Files extends Component
 
     public function render()
     {
-        $this->files = auth()->user()->files()->orderByDesc('created_at')->get();
+        $this->getFiles();
 
         return view('livewire.files');
     }
