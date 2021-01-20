@@ -13,7 +13,7 @@ class FileDownloadController extends Controller
         $file = File::where('uuid', $request->uuid)->firstOrFail();
 
         $headers = [
-            'Content-Type' => 'application/octet-stream', // application/octet-stream for general file types?
+            'Content-Type' => $file->mime ?? 'application/octet-stream',
             'Content-Length' => Storage::size($file->path),
             'Content-Disposition' => "attachment; filename=\"{$file->name}\"",
         ];

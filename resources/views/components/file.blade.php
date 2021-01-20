@@ -25,6 +25,7 @@
                 <a
                     href="{{ route('download', [$file->uuid, $file->name]) }}"
                     class="text-blue-700 underline"
+                    download
                 >
                     {{ $file->name }}
                 </a>
