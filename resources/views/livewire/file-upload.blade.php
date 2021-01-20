@@ -6,11 +6,7 @@
     x-on:livewire-upload-progress="progress = $event.detail.progress"
     class="border-b"
 >
-    @if (session()->has('message'))
-        <div class="alert alert-info bg-blue-100 text-blue-900 text-center py-2">
-            {{ session('message') }}
-        </div>
-    @endif
+    <x-alert type="success" />
 
     <!-- File Input -->
     <form wire:submit.prevent="save" class="p-8">

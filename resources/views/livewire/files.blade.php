@@ -1,5 +1,5 @@
 <div>
-    <x-alert type="success" />
+    <x-alert type="info" />
 
     <livewire:file-upload />
 
