@@ -6,3 +6,11 @@
 [x-cloak] {
     display: none;
 }
+
+.alert.alert-success {
+    @apply bg-green-100 text-green-900;
+}
+
+.alert.alert-info {
+    @apply bg-blue-100 text-blue-900;
+}
