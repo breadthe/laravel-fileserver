@@ -7,6 +7,8 @@
 
     <livewire:file-upload />
 
+    <div id="clipboardMessage" class="hidden p-2 text-center font-bold border-b"></div>
+
     <div class="divide-y">
         @forelse($files as $file)
             <x-file :file="$file" :key="$file->id"/>

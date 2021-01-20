@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileDownloadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/f/{uuid}', function (\Illuminate\Http\Request $request) {
-    dump($request->uuid);
-})->name('download');
+Route::get('/f/{uuid}/{name}', [FileDownloadController::class, 'download'])->name('download');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard', function () {

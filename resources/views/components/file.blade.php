@@ -20,10 +20,10 @@
     </div>
 
     <div class="flex justify-between items-center w-full" x-show="!isDeleting">
-        <div class="flex">
+        <div class="flex space-x-4">
             <div class="flex flex-col">
                 <a
-                    href="{{ route('download', $file->uuid) }}"
+                    href="{{ route('download', [$file->uuid, $file->name]) }}"
                     class="text-blue-700 underline"
                 >
                     {{ $file->name }}
@@ -32,7 +32,7 @@
             </div>
             <button
                 type="button"
-                class="text-red-700 px-2 ml-4"
+                class="text-red-700 px-2"
                 title="Delete file"
                 x-show="isShowing"
                 x-on:click="isDeleting = true"
@@ -40,9 +40,47 @@
             >
                 delete
             </button>
+
+            <button
+                type="button"
+                class="text-blue-700 px-2"
+                title="Copy file URL"
+                x-show="isShowing"
+                x-on:click="copy(`{{ route('download', [$file->uuid, $file->name]) }}`)"
+                x-cloak
+            >
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M4.5 6.5L1.328 9.672a2.828 2.828 0 104 4L8.5 10.5m2-2l3.172-3.172a2.829 2.829 0 00-4-4L6.5 4.5m-2 6l6-6" stroke="currentColor"></path></svg>
+            </button>
         </div>
 
         <span>{{ formatBytes($file->size) }}</span>
     </div>
 
 </div>
+
+<script>
+    async function copy(text) {
+        if (!navigator.clipboard) {
+            return;
+        }
+
+        try {
+            // copy the URL to the clipboard
+            await navigator.clipboard.writeText(text);
+
+            // show copied to clipboard message
+            const clipMsg = document.querySelector(`#clipboardMessage`);
+            clipMsg.innerText = 'Copied!'
+            clipMsg.classList.remove("hidden");
+            clipMsg.classList.add("block");
+
+            // hide the message after x ms
+            setTimeout(() => {
+                clipMsg.classList.remove("flex");
+                clipMsg.classList.add("hidden");
+            }, 2000);
+        } catch (error) {
+            console.error("copy failed", error);
+        }
+    }
+</script>
