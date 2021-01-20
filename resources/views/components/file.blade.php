@@ -46,41 +46,16 @@
                 class="text-blue-700 px-2"
                 title="Copy file URL"
                 x-show="isShowing"
-                x-on:click="copy(`{{ route('download', [$file->uuid, $file->name]) }}`)"
+                x-on:click="copy(`{{ route('download', [$file->uuid, $file->name]) }}`, `{{ $file->uuid }}`)"
                 x-cloak
             >
                 <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M4.5 6.5L1.328 9.672a2.828 2.828 0 104 4L8.5 10.5m2-2l3.172-3.172a2.829 2.829 0 00-4-4L6.5 4.5m-2 6l6-6" stroke="currentColor"></path></svg>
             </button>
         </div>
 
+        <div id="clipMsg-{{ $file->uuid }}" class="hidden font-bold"></div>
+
         <span>{{ formatBytes($file->size) }}</span>
     </div>
 
 </div>
-
-<script>
-    async function copy(text) {
-        if (!navigator.clipboard) {
-            return;
-        }
-
-        try {
-            // copy the URL to the clipboard
-            await navigator.clipboard.writeText(text);
-
-            // show copied to clipboard message
-            const clipMsg = document.querySelector(`#clipboardMessage`);
-            clipMsg.innerText = 'Copied!'
-            clipMsg.classList.remove("hidden");
-            clipMsg.classList.add("block");
-
-            // hide the message after x ms
-            setTimeout(() => {
-                clipMsg.classList.remove("flex");
-                clipMsg.classList.add("hidden");
-            }, 2000);
-        } catch (error) {
-            console.error("copy failed", error);
-        }
-    }
-</script>
