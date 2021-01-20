@@ -29,7 +29,9 @@
                 >
                     {{ $file->name }}
                 </a>
-                <span class="text-xs text-gray-600">Uploaded: {{ $file->created_at }}</span>
+                <span class="text-xs text-gray-600" title="{{ $file->created_at }}">
+                    Uploaded: {{ $file->created_at->diffForHumans() }}
+                </span>
             </div>
             <button
                 type="button"
