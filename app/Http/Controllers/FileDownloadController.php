@@ -19,6 +19,8 @@ class FileDownloadController extends Controller
         ];
 
         if (Storage::exists($file->path)) {
+            $file->trackDownload($request);
+
             return response()->streamDownload(function () use ($file) {
                 echo Storage::get($file->path);
             }, $file->name, $headers);

@@ -11,7 +11,8 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->uuid('uuid');
+            $table->uuid('uuid')->index();
+            $table->boolean('public')->default(true);
             $table->string('path')->nullable()->comment('Storage path on disk');
             $table->string('name')->nullable()->comment('Original file name');
             $table->string('mime')->nullable()->comment('File MIME type');
