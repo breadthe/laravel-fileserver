@@ -12,6 +12,7 @@ class FileUpload extends Component
     use WithFileUploads;
 
     public $file = null;
+    public $isPublic = true; // files are public by default
     public $inputId = 1; // give the file input an id so I can reset it later
 
     public function save()
@@ -28,6 +29,7 @@ class FileUpload extends Component
 
         File::create([
             'user_id' => auth()->id(),
+            'public' => $this->isPublic,
             'path' => $path,
             'name' => $originalFileName,
             'mime' => $fileMime,

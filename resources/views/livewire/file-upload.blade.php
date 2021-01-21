@@ -9,17 +9,23 @@
     <x-alert type="success" />
 
     <!-- File Input -->
-    <form wire:submit.prevent="save" class="p-8">
+    <form wire:submit.prevent="save" class="flex justify-between items-center p-8">
         <input type="file" wire:model="file" id="{{ $inputId }}">
 
         @error('file') <span class="error text-red-700">{{ $message }}</span> @enderror
 
         @if($file)
-            <button
-                type="submit"
-                class="px-4 py-2 bg-blue-700 text-white"
-                x-cloak
-            >Save file</button>
+            <div class="space-x-4">
+                <button
+                    type="submit"
+                    class="px-4 py-2 bg-blue-700 text-white"
+                    x-cloak
+                >Save file</button>
+                <label class="space-x-1">
+                    <input type="checkbox" wire:model="isPublic" />
+                    <span>Public</span>
+                </label>
+            </div>
         @endif
     </form>
 
