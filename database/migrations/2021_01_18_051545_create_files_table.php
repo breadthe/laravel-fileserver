@@ -10,7 +10,10 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->uuid('uuid')->index();
             $table->boolean('public')->default(true);
             $table->string('path')->nullable()->comment('Storage path on disk');
@@ -18,12 +21,6 @@ class CreateFilesTable extends Migration
             $table->string('mime')->nullable()->comment('File MIME type');
             $table->string('size')->nullable()->comment('Size in bytes');
             $table->timestamps();
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
         });
     }
 
