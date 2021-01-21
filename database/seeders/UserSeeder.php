@@ -12,8 +12,8 @@ class UserSeeder extends Seeder
         User::factory()
             ->withPersonalTeam()
             ->create([
-                'name' => 'Bob',
-                'email' => 'bob@example.com',
+                'name' => 'Test',
+                'email' => 'test@example.com',
             ]);
     }
 }
