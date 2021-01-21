@@ -36,6 +36,7 @@ class File extends Model
     public function trackDownload(Request $request)
     {
         Download::create([
+            'file_id' => $this->id,
             'uuid' => $this->uuid,
             'path' => $this->path,
             'name' => $this->name,

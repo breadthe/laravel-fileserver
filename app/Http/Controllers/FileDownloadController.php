@@ -12,6 +12,11 @@ class FileDownloadController extends Controller
     {
         $file = File::where('uuid', $request->uuid)->firstOrFail();
 
+        // Prevent downloading private files
+        if (!$file->public) {
+            abort(404);
+        }
+
         $headers = [
             'Content-Type' => $file->mime ?? 'application/octet-stream',
             'Content-Length' => Storage::size($file->path),
