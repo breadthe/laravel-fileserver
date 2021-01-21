@@ -31,6 +31,7 @@ class ExampleTest extends TestCase
     // A private file cannot be downloaded by other users than the owner
     // A private file can be downloaded by the logged-in owner
     // A downloaded file is tracked properly in the DB
+    // A file downloaded by its owner is flagged correctly
     // A file is deleted properly
     // When a user is deleted, their **local** files are also deleted - does not apply to files stored in the cloud
 }

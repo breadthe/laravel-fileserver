@@ -16,6 +16,7 @@ class CreateDownloadsTable extends Migration
             $table->string('path')->nullable()->comment('Storage path on disk');
             $table->string('name')->nullable()->comment('Original file name');
             $table->string('ip', 32)->nullable()->comment('Client IP');
+            $table->boolean('by_owner')->default(false)->comment('Was it downloaded by its owner?');
             $table->text('meta')->nullable()->comment('General meta field');
             $table->timestamps();
         });

@@ -38,6 +38,7 @@ class File extends Model
         Download::create([
             'file_id' => $this->id,
             'uuid' => $this->uuid,
+            'by_owner' => $this->user_id === auth()->id(),
             'path' => $this->path,
             'name' => $this->name,
             'ip' => $request->ip(),
