@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily'], // 'single', 'expired-secrets'
             'ignore_exceptions' => false,
         ],
 
