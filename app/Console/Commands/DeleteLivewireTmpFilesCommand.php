@@ -29,8 +29,8 @@ class DeleteLivewireTmpFilesCommand extends Command
                 foreach ($files as $file) {
                     $lastModifiedDate = Carbon::createFromTimestamp(Storage::lastModified($file));
 
-                    if ($lastModifiedDate->diff()->i > $olderThanMinutes) {
-                        $this->info("📄 Deleting {$file} created {$lastModifiedDate->diffForHumans()}");
+                    if ((int)$lastModifiedDate->diff()->i > $olderThanMinutes) {
+                        $this->info("📄 Deleting <fg=magenta>{$file}</> created <fg=yellow>{$lastModifiedDate->diffForHumans()}</>");
                         Storage::delete($file);
                     }
                 }
