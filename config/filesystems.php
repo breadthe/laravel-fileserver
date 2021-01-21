@@ -38,7 +38,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -51,7 +51,12 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-
+        'b2' => [
+            'driver' => 'b2',
+            'accountId' => env('B2_ACCOUNT_ID'),
+            'applicationKey' => env('B2_APPLICATION_KEY'),
+            'bucketName' => env('B2_BUCKET_NAME'),
+        ],
     ],
 
     /*
