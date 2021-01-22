@@ -11,6 +11,7 @@ class FileDownloadController extends Controller
     public function download(Request $request)
     {
         $file = File::where('uuid', $request->uuid)->firstOrFail();
+        $path = urldecode($file->path); // B2 requires the path to be decoded in order to read it properly
 
         // Prevent downloading private files, except by the logged-in owner
         if (!$file->public && ($file->user_id !== auth()->id() || auth()->guest())) {
@@ -19,15 +20,16 @@ class FileDownloadController extends Controller
 
         $headers = [
             'Content-Type' => $file->mime ?? 'application/octet-stream',
-            'Content-Length' => Storage::size($file->path),
+            'Content-Length' => Storage::disk($file->disk)->size($path),
             'Content-Disposition' => "attachment; filename=\"{$file->name}\"",
         ];
 
-        if (Storage::exists($file->path)) {
+        if (Storage::disk($file->disk)->exists($path)) {
             $file->trackDownload($request);
+            // TODO emit Livewire event to update the download count without refreshing the page
 
-            return response()->streamDownload(function () use ($file) {
-                echo Storage::get($file->path);
+            return response()->streamDownload(function () use ($file, $path) {
+                echo Storage::disk($file->disk)->get($path);
             }, $file->name, $headers);
         } else {
             abort(404);
