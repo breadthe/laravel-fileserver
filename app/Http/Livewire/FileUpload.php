@@ -12,6 +12,7 @@ class FileUpload extends Component
     use WithFileUploads;
 
     public $file = null;
+    public $storageDisk = 'local'; // files are stored to the local disk by default
     public $isPublic = true; // files are public by default
     public $inputId = 1; // give the file input an id so I can reset it later
 
@@ -22,25 +23,36 @@ class FileUpload extends Component
         ]);*/
 
         // file path on disk
-        $path = $this->file->store('files');
         $originalFileName = $this->file->getClientOriginalName();
         $fileMime = $this->file->getMimeType(); // Storage::mimeType($path) also works
-        $fileSize = Storage::size($path); // bytes
 
-        File::create([
-            'user_id' => auth()->id(),
-            'public' => $this->isPublic,
-            'path' => $path,
-            'name' => $originalFileName,
-            'mime' => $fileMime,
-            'size' => $fileSize,
-        ]);
+        try {
+            // file path on disk
+            $path = $this->file->storeAs(
+                'files', // folder (path)
+                $originalFileName,
+                $this->storageDisk
+            );
+            $fileSize = Storage::disk($this->storageDisk)->size($path); // bytes
+
+            File::create([
+                'user_id' => auth()->id(),
+                'public' => $this->isPublic,
+                'disk' => $this->storageDisk,
+                'path' => $path,
+                'name' => $originalFileName,
+                'mime' => $fileMime,
+                'size' => $fileSize,
+            ]);
+
+            $this->emit('newFileUploaded');
+            session()->flash('message', "File successfully uploaded to \"{$this->storageDisk}\" disk.");
+        } catch (\Exception $e) {
+            session()->flash('error', "Error uploading to \"{$this->storageDisk}\" disk: {$e->getMessage()}");
+        }
 
         $this->file = null; // doesn't work, and neither does $this->reset('file')
         $this->inputId++; // workaround for clearing the file input
-
-        $this->emit('newFileUploaded');
-        session()->flash('message', 'File successfully uploaded.');
     }
 
     public function render()
