@@ -13,6 +13,7 @@ class CreateDownloadsTable extends Migration
             $table->foreignId('file_id')
                 ->constrained('files');
             $table->uuid('uuid')->index();
+            $table->string('disk')->default('local')->comment('Storage provider disk');
             $table->string('path')->nullable()->comment('Storage path on disk');
             $table->string('name')->nullable()->comment('Original file name');
             $table->string('ip', 32)->nullable()->comment('Client IP');
