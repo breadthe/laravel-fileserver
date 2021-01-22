@@ -29,6 +29,6 @@ class Files extends Component
     }
 
     public function getFiles() {
-        $this->files = auth()->user()->files()->with('downloads')->orderByDesc('created_at')->get();
+        $this->files = auth()->user()->files()->withCount('downloads')->orderByDesc('created_at')->get();
     }
 }

@@ -7,12 +7,6 @@ use Livewire\Component;
 class File extends Component
 {
     public $file;
-    public $downloads = null;
-
-    public function mount()
-    {
-        $this->downloads = $this->file->downloads->count();
-    }
 
     public function render()
     {

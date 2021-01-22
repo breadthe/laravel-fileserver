@@ -50,11 +50,11 @@
                         Uploaded: {{ $file->created_at->diffForHumans() }}
                     </span>
 
-                    @if($downloads)
+                    @if($file->downloads_count)
                         <span class="px-2 text-xs text-gray-600" title="How many times the file was downloaded">
                             Downloads: <span
                                 class="rounded-full text-xs text-blue-700 font-bold">
-                                {{ $downloads }}
+                                {{ $file->downloads_count }}
                             </span>
                         </span>
                     @endif
