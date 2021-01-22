@@ -6,9 +6,9 @@ use Illuminate\View\Component;
 
 class Alert extends Component
 {
-    public $type;
+    public $type = 'success'; // success or info; currently error renders independently, and does not need specifying
 
-    public function __construct(string $type = 'success')
+    public function __construct(string $type)
     {
         $this->type = $type;
     }

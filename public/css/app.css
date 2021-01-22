@@ -32734,6 +32734,13 @@ select {
   color: rgba(30, 58, 138, var(--tw-text-opacity));
 }
 
+.alert.alert-error {
+  --tw-bg-opacity: 1;
+  background-color: rgba(254, 226, 226, var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(127, 29, 29, var(--tw-text-opacity));
+}
+
 /* =================== Storage providers =================== */
 
 /* === Local === */
