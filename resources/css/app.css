@@ -2,6 +2,11 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+:root {
+    --backblaze-red: #DD373D;
+    --aws-orange: #F1A23A;
+}
+
 /* =================== Alpine.js =================== */
 [x-cloak] {
     display: none;
@@ -13,4 +18,29 @@
 
 .alert.alert-info {
     @apply bg-blue-100 text-blue-900;
+}
+
+/* =================== Storage providers =================== */
+/* === Local === */
+.text-local {
+    @apply text-gray-600
+}
+.bg-local {
+    @apply bg-gray-600;
+}
+
+/* === Backblaze B2 === */
+.text-b2 {
+    color: var(--backblaze-red);
+}
+.bg-b2 {
+    background-color: var(--backblaze-red);
+}
+
+/* === AWS S3 === */
+.text-s3 {
+    color: var(--aws-orange);
+}
+.bg-s3 {
+    background-color: var(--aws-orange);
 }

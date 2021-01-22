@@ -32709,6 +32709,11 @@ select {
           animation: bounce 1s infinite;
 }
 
+:root {
+  --backblaze-red: #DD373D;
+  --aws-orange: #F1A23A;
+}
+
 /* =================== Alpine.js =================== */
 
 [x-cloak] {
@@ -32727,6 +32732,40 @@ select {
   background-color: rgba(219, 234, 254, var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgba(30, 58, 138, var(--tw-text-opacity));
+}
+
+/* =================== Storage providers =================== */
+
+/* === Local === */
+
+.text-local {
+  --tw-text-opacity: 1;
+  color: rgba(75, 85, 99, var(--tw-text-opacity))
+}
+
+.bg-local {
+  --tw-bg-opacity: 1;
+  background-color: rgba(75, 85, 99, var(--tw-bg-opacity));
+}
+
+/* === Backblaze B2 === */
+
+.text-b2 {
+  color: var(--backblaze-red);
+}
+
+.bg-b2 {
+  background-color: var(--backblaze-red);
+}
+
+/* === AWS S3 === */
+
+.text-s3 {
+  color: var(--aws-orange);
+}
+
+.bg-s3 {
+  background-color: var(--aws-orange);
 }
 
 @media (min-width: 640px) {
