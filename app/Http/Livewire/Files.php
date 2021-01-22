@@ -15,8 +15,8 @@ class Files extends Component
     public function delete(File $file)
     {
         if ($file->user_id === auth()->id()) {
+            Storage::disk($file->disk)->delete($file->path);
             File::destroy($file->id);
-            Storage::delete($file->path);
             session()->flash('message', 'File successfully deleted.');
         }
     }
