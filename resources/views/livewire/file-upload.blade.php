@@ -33,6 +33,7 @@
                     x-cloak
                     wire:loading.class.remove="bg-blue-700"
                     wire:loading.class="bg-blue-200 cursor-not-allowed"
+                    wire:loading.attr="disabled"
                 >Save file</button>
 
                 <label class="space-x-1">
