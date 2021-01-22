@@ -30,10 +30,10 @@ class FileUpload extends Component
             // file path on disk
             $path = $this->file->storeAs(
                 'files', // folder (path)
-                $originalFileName,
+                urlencode($originalFileName),
                 $this->storageDisk
             );
-            $fileSize = Storage::disk($this->storageDisk)->size($path); // bytes
+            $fileSize = Storage::disk($this->storageDisk)->size(urldecode($path)); // bytes
 
             File::create([
                 'user_id' => auth()->id(),
@@ -51,7 +51,10 @@ class FileUpload extends Component
             session()->flash('error', "Error uploading to \"{$this->storageDisk}\" disk: {$e->getMessage()}");
         }
 
+        // Reset defaults
         $this->file = null; // doesn't work, and neither does $this->reset('file')
+        $this->storageDisk = 'local';
+        $this->isPublic = true;
         $this->inputId++; // workaround for clearing the file input
     }
 
