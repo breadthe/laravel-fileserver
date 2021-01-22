@@ -22,16 +22,16 @@ class DeleteLivewireTmpFilesCommand extends Command
             $olderThanMinutes = 1;
         }
 
-        if (Storage::exists($path)) {
-            $files = Storage::files($path);
+        if (Storage::disk('local')->exists($path)) {
+            $files = Storage::disk('local')->files($path);
 
             if ($files) {
                 foreach ($files as $file) {
-                    $lastModifiedDate = Carbon::createFromTimestamp(Storage::lastModified($file));
+                    $lastModifiedDate = Carbon::createFromTimestamp(Storage::disk('local')->lastModified($file));
 
                     if ((int)$lastModifiedDate->diff()->i > $olderThanMinutes) {
                         $this->info("📄 Deleting <fg=magenta>{$file}</> created <fg=yellow>{$lastModifiedDate->diffForHumans()}</>");
-                        Storage::delete($file);
+                        Storage::disk('local')->delete($file);
                     }
                 }
 
