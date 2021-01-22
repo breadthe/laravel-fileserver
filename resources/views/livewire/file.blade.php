@@ -42,6 +42,10 @@
                 </div>
 
                 <div class="flex items-center divide-x divide-gray-300 -mx-2">
+                    <span class="px-2 text-xs font-black text-{{ $file->disk }}" title="Storage disk - {{ $file->disk }}">
+                        {{ $file->disk }}
+                    </span>
+
                     <span class="px-2 text-xs text-gray-600" title="{{ $file->created_at }}">
                         Uploaded: {{ $file->created_at->diffForHumans() }}
                     </span>
