@@ -51,7 +51,17 @@ class FileUpload extends Component
             session()->flash('error', "Error uploading to \"{$this->storageDisk}\" disk: {$e->getMessage()}");
         }
 
-        // Reset defaults
+        $this->resetForm();
+    }
+
+    // Cancel saving the temporary uploaded file to disk
+    public function cancel()
+    {
+        $this->resetForm();
+    }
+
+    private function resetForm()
+    {
         $this->file = null; // doesn't work, and neither does $this->reset('file')
         $this->storageDisk = 'local';
         $this->isPublic = true;
