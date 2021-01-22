@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="flex justify-between items-center w-full" x-show="!isDeleting">
+    <div class="flex justify-between items-center w-full" x-show="!isDeleting" x-cloak>
         <div class="flex items-center space-x-8">
             <div class="flex flex-col">
                 <div class="flex items-center space-x-1">
