@@ -33,7 +33,12 @@ class FileUpload extends Component
                 urlencode($originalFileName),
                 $this->storageDisk
             );
-            $fileSize = Storage::disk($this->storageDisk)->size(urldecode($path)); // bytes
+
+            $fileSize = Storage::disk($this->storageDisk)->size(
+                $this->storageDisk === 'local'
+                    ? $path // stored to local disk as "files/angry+cat.jpg", retrieved as "files/angry cat.jpg"
+                    : urldecode($path) // uploaded to B2 as "files/angry+cat.jpg",  stored to B2 disk as "files/angry cat.jpg", retrieved as "files/angry cat.jpg"
+            ); // bytes
 
             File::create([
                 'user_id' => auth()->id(),
