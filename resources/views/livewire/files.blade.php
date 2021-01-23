@@ -5,7 +5,7 @@
 
     <div class="divide-y">
         @forelse($files as $file)
-            <livewire:file :file="$file" :key="$file->id"/>
+            <livewire:file :file="$file" :key="time()"/>
         @empty
             <div class="text-center p-8">
                 <span>No files yet</span>
