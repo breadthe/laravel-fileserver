@@ -10,8 +10,7 @@ class CreateDownloadsTable extends Migration
     {
         Schema::create('downloads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('file_id')
-                ->constrained('files');
+            $table->foreignId('file_id');
             $table->uuid('uuid')->index();
             $table->string('disk')->default('local')->comment('Storage provider disk');
             $table->string('path')->nullable()->comment('Storage path on disk');
