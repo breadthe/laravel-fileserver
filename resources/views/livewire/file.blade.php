@@ -25,7 +25,7 @@
             <div class="flex flex-col">
                 <div class="flex items-center space-x-1">
                     <a
-                        href="{{ route('download', [$file->uuid, $file->name]) }}"
+                        href="{{ route('download', $file->uuid) }}"
                         class="text-blue-700 underline"
                         download
                     >
@@ -63,7 +63,7 @@
             </div>
 
             <a
-                href="{{ route('download', [$file->uuid, $file->name]) }}"
+                href="{{ route('download', $file->uuid) }}"
                 class="text-blue-700 underline"
                 title="{{ $file->name }}"
                 download
@@ -79,7 +79,7 @@
                 class="text-blue-700"
                 title="Copy file URL"
                 x-show="isShowing"
-                x-on:click="copy(`{{ route('download', [$file->uuid, $file->name]) }}`, `{{ $file->uuid }}`)"
+                x-on:click="copy(`{{ route('download', $file->uuid) }}`, `{{ $file->uuid }}`)"
                 x-cloak
             >
                 <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">

@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/f/{uuid}/{name}', [FileDownloadController::class, 'download'])->name('download');
+Route::get('/f/{uuid}', [FileDownloadController::class, 'download'])->name('download');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard', function () {
