@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Ramsey\Uuid\Uuid;
 
 class User extends Authenticatable
 {
@@ -58,6 +59,16 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        // Generate a UUID when the model object is created
+        self::creating(function ($model) {
+            $model->uuid = (string)Uuid::uuid4(); // random UUID
+        });
+    }
 
     public function files()
     {
