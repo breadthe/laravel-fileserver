@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\File;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -25,6 +24,7 @@ class FileUpload extends Component
         // file path on disk
         $originalFileName = $this->file->getClientOriginalName();
         $fileMime = $this->file->getMimeType(); // Storage::mimeType($path) also works
+        $fileSize = $this->file->getSize();
 
         try {
             // file path on disk
@@ -33,12 +33,6 @@ class FileUpload extends Component
                 urlencode($originalFileName),
                 $this->storageDisk
             );
-
-            $fileSize = Storage::disk($this->storageDisk)->size(
-                $this->storageDisk === 'local'
-                    ? $path // stored to local disk as "files/angry+cat.jpg", retrieved as "files/angry cat.jpg"
-                    : urldecode($path) // uploaded to B2 as "files/angry+cat.jpg",  stored to B2 disk as "files/angry cat.jpg", retrieved as "files/angry cat.jpg"
-            ); // bytes
 
             File::create([
                 'user_id' => auth()->id(),
