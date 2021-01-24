@@ -9,7 +9,7 @@
     <x-alert type="success" />
 
     <!-- File Input -->
-    <form wire:submit.prevent="save" class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 space-y-4 sm:space-y-0">
+    <form wire:submit.prevent="save" class="flex flex-col sm:flex-row sm:justify-between p-4 space-y-4 sm:space-y-0">
         <div>
             <input type="file" wire:model="file" id="{{ $inputId }}">
 
@@ -17,7 +17,7 @@
         </div>
 
         @if($file)
-            <div class="flex-1 flex flex-col-reverse sm:flex-row items-stretch justify-end sm:items-center sm:space-x-4">
+            <div class="flex-1 flex flex-col-reverse sm:flex-row justify-end sm:items-start sm:space-x-4">
                 <div class="flex items-center justify-around sm:space-y-0 space-y-4">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
