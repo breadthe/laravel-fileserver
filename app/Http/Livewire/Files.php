@@ -19,10 +19,12 @@ class Files extends Component
             'uuid' => $uuid,
         ])->firstOrFail();
 
-        if ($file) {
+        try {
             Storage::disk($file->disk)->delete($file->path);
             File::destroy($file->id);
             session()->flash('message', 'File successfully deleted.');
+        } catch (\Exception $e) {
+            session()->flash('error', "Error deleting file from disk \"{$this->storageDisk}\": {$e->getMessage()}");
         }
     }
 
