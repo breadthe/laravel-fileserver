@@ -12,9 +12,14 @@ class Files extends Component
 
     protected $listeners = ['newFileUploaded' => 'getFiles', 'deleteFile' => 'delete'];
 
-    public function delete(File $file)
+    public function delete(string $uuid)
     {
-        if ($file->user_id === auth()->id()) {
+        $file = File::where([
+            'user_id' => auth()->id(),
+            'uuid' => $uuid,
+        ])->firstOrFail();
+
+        if ($file) {
             Storage::disk($file->disk)->delete($file->path);
             File::destroy($file->id);
             session()->flash('message', 'File successfully deleted.');

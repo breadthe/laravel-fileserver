@@ -12,7 +12,7 @@
     >
         <span>Are you sure you want to delete <strong>{{ $file->name }}</strong>?</span>
         <div class="flex justify-center space-x-8">
-            <form wire:submit.prevent="$emit('deleteFile', {{ $file }})" class="">
+            <form wire:submit.prevent="$emit('deleteFile', '{{ $file->uuid }}')" class="">
                 <button type="submit" x-on:click="isDeleting = false" class="text-red-700">delete</button>
             </form>
 
