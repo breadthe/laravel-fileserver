@@ -17,7 +17,6 @@ class CreateFilesTable extends Migration
             $table->uuid('uuid')->index();
             $table->boolean('public')->default(true);
             $table->string('disk')->default('local')->comment('Storage provider disk');
-            $table->string('path')->nullable()->comment('Storage path on disk');
             $table->string('name')->nullable()->comment('Original file name');
             $table->string('mime')->nullable()->comment('File MIME type');
             $table->string('size')->nullable()->comment('Size in bytes');

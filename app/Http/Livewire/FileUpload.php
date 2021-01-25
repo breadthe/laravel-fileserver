@@ -27,24 +27,23 @@ class FileUpload extends Component
         $fileSize = $this->file->getSize();
 
         try {
-            // file path on disk
-            $path = $this->file->storeAs(
-                'files', // folder (path)
-                urlencode($originalFileName),
-                $this->storageDisk
-            );
-
-            File::create([
+            $newFile = File::create([
                 'user_id' => auth()->id(),
                 'public' => $this->isPublic,
                 'disk' => $this->storageDisk,
-                'path' => $path,
                 'name' => $originalFileName,
                 'mime' => $fileMime,
                 'size' => $fileSize,
             ]);
 
+            $this->file->storeAs(
+                $newFile->path(), // folder (path) + file name
+                '', // the file name is already in the path
+                $this->storageDisk
+            );
+
             $this->emit('newFileUploaded');
+
             session()->flash('message', "File successfully uploaded to \"{$this->storageDisk}\" disk.");
         } catch (\Exception $e) {
             session()->flash('error', "Error uploading to \"{$this->storageDisk}\" disk: {$e->getMessage()}");
