@@ -14,17 +14,22 @@ class Files extends Component
 
     public function delete(string $uuid)
     {
+        // Locate the file
         $file = File::where([
             'user_id' => auth()->id(),
             'uuid' => $uuid,
         ])->firstOrFail();
 
         try {
-            Storage::disk($file->disk)->delete($file->path);
-            File::destroy($file->id);
+            // Remove it from disk
+            Storage::disk($file->disk)->delete($file->path());
+
+            // Remove it from the DB
+            $file->delete();
+
             session()->flash('message', 'File successfully deleted.');
         } catch (\Exception $e) {
-            session()->flash('error', "Error deleting file from disk \"{$this->storageDisk}\": {$e->getMessage()}");
+            session()->flash('error', "Error deleting file from disk \"{$file->disk}\": {$e->getMessage()}");
         }
     }
 
