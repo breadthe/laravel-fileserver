@@ -19,7 +19,7 @@ class CreateFilesTable extends Migration
             $table->string('disk')->default('local')->comment('Storage provider disk');
             $table->string('name')->nullable()->comment('Original file name');
             $table->string('mime')->nullable()->comment('File MIME type');
-            $table->string('size')->nullable()->comment('Size in bytes');
+            $table->unsignedInteger('size')->nullable()->comment('Size in bytes');
             $table->timestamps();
         });
     }
