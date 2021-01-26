@@ -35,7 +35,7 @@
                         type="button"
                         class="text-xs rounded-full px-1 {{ $file->public ? 'text-gray-600': 'text-white bg-blue-700' }}"
                         title="Click to toggle file visibility"
-                        wire:click="toggleFileVisibility()"
+                        wire:click="toggleVisibility()"
                     >
                         {{ $file->public ? 'public': 'private' }}
                     </button>

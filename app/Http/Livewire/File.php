@@ -13,7 +13,7 @@ class File extends Component
         return view('livewire.file');
     }
 
-    public function toggleFileVisibility()
+    public function toggleVisibility()
     {
         $file = \App\Models\File::where(
             [
