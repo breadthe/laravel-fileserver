@@ -21,6 +21,16 @@ It uses the local disk for storage, with cloud providers to follow.
 * **WIP** Upload to specific folders
 * **WIP** Sorting, searching, and filtering of the file list
 
+## Troubleshooting
+
+### Failed to load resource: net::ERR_CONNECTION_CLOSED
+
+The initial (temporary) file upload request to `upload-file` times out with a `HTTP Error 401 Unauthorized` in the developer console.
+
+**Explanation:** The Livewire request is invalidated before the file finishes uploading. 
+
+**Solution:** Increase `max_upload_time` in `config/livewire.php`. By default, it is set to 5 minutes. It should suffice, but depending on the size of your uploads, and your connection speed, it might not be enough. 
+
 ## License
 
 FileServer is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
