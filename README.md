@@ -15,11 +15,13 @@ It uses the local disk for storage, with cloud providers to follow.
 * Set file visibility to public (default) or private
 * Private files can only be downloaded by the owner (when signed in)
 * Track individual file download stats, including client IP 
+* Cloud storage providers
+    * [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html)
+    * **WIP** AWS S3
 * **WIP** Throttle downloads from the same IP
 * **WIP** Block downloads for designated client IPs
-* **WIP** Cloud storage providers
 * **WIP** Upload to specific folders
-* **WIP** Sorting, searching, and filtering of the file list
+* **WIP** Sort, search, and filter the file list
 
 ## Installation
 
@@ -65,12 +67,38 @@ php artisan migrate
 php artisan db:seed
 ```
 
+## Backblaze B2
+
+To configure uploads to [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html), first sign up for a free account, and you'll get 10GB free. The catch? Downloads are capped to 1GB per day.
+
+![Generate a new Master Application Key](https://user-images.githubusercontent.com/17433578/106234454-7cc68e80-61be-11eb-9a0c-6a5ebc020add.png)
+
+1. After signing in, go to **My Account**
+1. Go to **Buckets** and create a new public storage bucket, say `myfiles`
+1. Go to **App Keys**
+1. Under the **Master Application Key** section...
+1. ... make a note of the `keyID`
+1. ...then click "Generate New Master Application Key"
+1. **NOTE** if you already have other applications using this master key, you'll need to update the configs for those apps
+1. Copy the new `Master Application Key` somewhere safe. **This will only be shown once**
+1. Back in the Laravel application, fill in the following config values:
+
+```yaml
+B2_ACCOUNT_ID=123abc456def # keyID
+B2_APPLICATION_KEY=ABC1234567890abcdefGHIKLLMNOPQR # Master Application Key
+B2_BUCKET_NAME=bucket-name # bucket name
+```
+
+Now you are ready to save files to your Backblaze B2 bucket!
+
+**NOTE** Technically you should be able to create an **Application Key** scoped to individual apps, instead of overwriting the Master Key. However, I wasn't able to get this to work. If you can, drop me a note.
+
 ## Extras
 
 The project contains several packages in addition to the default Laravel installation. These packages help my with development, but if you wish to remove them, here's a list:
 
-- [spatie/laravel-ray]()
-- [barryvdh/laravel-debugbar]()
+- [spatie/laravel-ray](https://github.com/spatie/laravel-ray)
+- [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
 
 ## Troubleshooting
 
